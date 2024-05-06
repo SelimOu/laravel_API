@@ -20,7 +20,7 @@ class ProductResource extends JsonResource
             'stock'=> $this->stock,
             'image'=>$this->image,
             'created_at' => $this->created_at,
-            'categorie_title'=>$this->categories->pluck('title')
+            // 'categorie_title'=>$this->categories->pluck('title')
         ];
     }
 // }
