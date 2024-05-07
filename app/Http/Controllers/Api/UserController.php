@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/v1/user",
+     *      path="/api/v1/user",
      *      tags={"User"},
      *      summary="Get all users",
      *      description="Get all users",
@@ -34,7 +34,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/v1/user",
+     *      path="/api/v1/user",
      *      tags={"User"},
      *      summary="Create a new user",
      *      description="Create a new user",
@@ -59,7 +59,7 @@ class UserController extends Controller
 
     /**
      * @OA\Put(
-     *      path="/v1/user/{post}",
+     *      path="/api/v1/user/{post}",
      *      tags={"User"},
      *      summary="Update an existing user",
      *      description="Update an existing user",
@@ -86,7 +86,7 @@ class UserController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/v1/user/{post}",
+     *      path="/api/v1/user/{post}",
      *      tags={"User"},
      *      summary="Delete a user",
      *      description="Delete a user",
@@ -110,7 +110,7 @@ class UserController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/v1/user/{post}",
+     *      path="/api/v1/user/{post}",
      *      tags={"User"},
      *      summary="Get a single user",
      *      description="Get a single user",
@@ -135,7 +135,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/v1/user/login",
+     *      path="/api/v1/login",
      *      tags={"User"},
      *      summary="Login user",
      *      description="Login user",
@@ -166,5 +166,30 @@ class UserController extends Controller
                   ->plainTextToken; 
 
         return [$user, $token];
+    }
+
+     /**
+     * @OA\Post(
+     *      path="/api/v1/register",
+     *      tags={"User"},
+     *      summary="Regsiter a new user",
+     *      description="Register a new user",
+     *      @OA\Response(response=200, description="Successful operation"),
+     *      @OA\Response(response=401, description="Unauthorized"),
+     *      @OA\RequestBody(
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *      )
+     * )
+     */
+    public function register(StoreUserRequest $request)
+    {
+        $user = User::create($request->validated());
+        
+        return [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'auth_token'=> $user->createToken('auth_token')->plainTextToken
+        ];
     }
 }

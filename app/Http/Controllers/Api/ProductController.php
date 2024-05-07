@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/v1/product",
+     *      path="/api/v1/product",
      *      tags={"Product"},
      *      summary="Get all products",
      *      description="Get all products",
@@ -33,7 +33,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/v1/product",
+     *      path="/api/v1/product",
      *      tags={"Product"},
      *      summary="Create a new product",
      *      description="Create a new product",
@@ -48,11 +48,12 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $product = Product::create($request->validated());
-        
+        if($request->categorie_id){
         $categories = explode(',' ,$request->categorie_id);
         foreach($categories as $categorie){
             $product->categories()->attach($categorie);
         }
+    }
 
         $this->StoreImg($product);
 
@@ -61,7 +62,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Put(
-     *      path="/v1/product/{post}",
+     *      path="/api/v1/product/{post}",
      *      tags={"Product"},
      *      summary="Update an existing product",
      *      description="Update an existing product",
@@ -82,13 +83,13 @@ class ProductController extends Controller
      */
     public function update(StoreProductRequest $request, Product $post)
     {
-        $imagepath = public_path('storage/' . $post->image);
-        unlink($imagepath);
+        // $imagepath = public_path('storage/' . $post->image);
+        // unlink($imagepath);
         $post->update($request->validated());
-
+        if($request->categorie_id){
         $categories = explode(',' ,$request->categorie_id);
         $post->categories()->sync($categories);
-
+        }
         $this->StoreImg($post);
 
         return new ProductResource($post);
@@ -96,7 +97,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/v1/product/{post}",
+     *      path="/api/v1/product/{post}",
      *      tags={"Product"},
      *      summary="Delete a product",
      *      description="Delete a product",
@@ -125,7 +126,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/v1/product/{post}",
+     *      path="/api/v1/product/{post}",
      *      tags={"Product"},
      *      summary="Get a single product",
      *      description="Get a single product",
@@ -150,7 +151,7 @@ class ProductController extends Controller
 
     /**
  * @OA\Get(
- *      path="/v1/filtreCate/{id}",
+ *      path="/api/v1/filtreCate/{id}",
  *      tags={"Product"},
  *      summary="Filter products by category",
  *      description="Filter products by category ID",
@@ -189,5 +190,22 @@ public function filtreCate($id){
                 'image' => request('image')->store('images', 'public'),
             ]);
         }
+    }
+
+     /**
+     * @OA\Get(
+     *      path="/api/v1/welcome",
+     *      tags={"Welcome"},
+     *      summary="Get all products",
+     *      description="Get all products",
+     *      security={{"sanctum":{}}},
+     *      @OA\Response(response=200, description="Successful operation"),
+     *      @OA\Response(response=401, description="Unauthenticated")
+     * )
+     */
+    public function welcome()
+    {
+        $products = Product::all();
+        return ProductResource::collection($products);
     }
 }

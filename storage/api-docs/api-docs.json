@@ -13,14 +13,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/v1/categorie": {
+        "/api/v1/categorie": {
             "get": {
                 "tags": [
                     "Categorie"
                 ],
                 "summary": "Get all categories",
                 "description": "Get all categories",
-                "operationId": "779883d36c235bb33e61601ef0b5e382",
+                "operationId": "2e1b455385734d344b583ff682bf081d",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -41,7 +41,7 @@
                 ],
                 "summary": "Create a new category",
                 "description": "Create a new category",
-                "operationId": "3b8e9b9c6704d21763bf62ee6b7d0e88",
+                "operationId": "28bd6cc293d2213cc109346248df50ee",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -66,14 +66,14 @@
                 ]
             }
         },
-        "/v1/categorie/{post}": {
+        "/api/v1/categorie/{post}": {
             "get": {
                 "tags": [
                     "Categorie"
                 ],
                 "summary": "Get a single category",
                 "description": "Get a single category",
-                "operationId": "e5988d7956b76da23af135890365ac45",
+                "operationId": "5197b9f48aed8d5f7d498a912fae9c7e",
                 "parameters": [
                     {
                         "name": "post",
@@ -108,7 +108,7 @@
                 ],
                 "summary": "Update an existing category",
                 "description": "Update an existing category",
-                "operationId": "ea11d485f80f8ceb5101148f87f754c4",
+                "operationId": "9bc6b53880ba94d61cb48c24e85a7d4b",
                 "parameters": [
                     {
                         "name": "post",
@@ -149,7 +149,7 @@
                 ],
                 "summary": "Delete a category",
                 "description": "Delete a category",
-                "operationId": "9fe45e35142b22c2ebd7dbc9bee8e9e2",
+                "operationId": "ae5ce067f68f761077ed4bf245d4d156",
                 "parameters": [
                     {
                         "name": "post",
@@ -176,14 +176,14 @@
                 ]
             }
         },
-        "/v1/product": {
+        "/api/v1/product": {
             "get": {
                 "tags": [
                     "Product"
                 ],
                 "summary": "Get all products",
                 "description": "Get all products",
-                "operationId": "8a8625d49657896e0a983d2537457add",
+                "operationId": "1c3b4d2d08a6f288a591a38ead02e5b4",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -204,7 +204,7 @@
                 ],
                 "summary": "Create a new product",
                 "description": "Create a new product",
-                "operationId": "98261533163e4d2788c67de34ae20f2e",
+                "operationId": "11b374caabe03b71870182cdbef8275d",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -229,14 +229,14 @@
                 ]
             }
         },
-        "/v1/product/{post}": {
+        "/api/v1/product/{post}": {
             "get": {
                 "tags": [
                     "Product"
                 ],
                 "summary": "Get a single product",
                 "description": "Get a single product",
-                "operationId": "6ea94aba464dd0477d3836c8c629dfc7",
+                "operationId": "98f35bb5fa75208197645c1851fa808e",
                 "parameters": [
                     {
                         "name": "post",
@@ -271,7 +271,7 @@
                 ],
                 "summary": "Update an existing product",
                 "description": "Update an existing product",
-                "operationId": "3fb8ac4f6ec8083ec6a294914bd40bfc",
+                "operationId": "6af31266363d854f3a93a3fbffaedab3",
                 "parameters": [
                     {
                         "name": "post",
@@ -312,7 +312,7 @@
                 ],
                 "summary": "Delete a product",
                 "description": "Delete a product",
-                "operationId": "c122b28e7a1fa8d7c8e48186c3943598",
+                "operationId": "ce29df30a2a8a5f66b39612bc03c32b7",
                 "parameters": [
                     {
                         "name": "post",
@@ -339,14 +339,74 @@
                 ]
             }
         },
-        "/v1/user": {
+        "/api/v1/filtreCate/{id}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Filter products by category",
+                "description": "Filter products by category ID",
+                "operationId": "552e46b97c3ca11a8cb5aff0bb09dcbe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/welcome": {
+            "get": {
+                "tags": [
+                    "Welcome"
+                ],
+                "summary": "Get all products",
+                "description": "Get all products",
+                "operationId": "9cca4a2bfb451251214737d05e0f5475",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user": {
             "get": {
                 "tags": [
                     "User"
                 ],
                 "summary": "Get all users",
                 "description": "Get all users",
-                "operationId": "1fd78a6d8a2292bf2f1ad5598d7d3b0d",
+                "operationId": "069866150be4b975d248c35627c94fdb",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -367,7 +427,7 @@
                 ],
                 "summary": "Create a new user",
                 "description": "Create a new user",
-                "operationId": "e49db8fe846dcb77e034e59f532ee9c4",
+                "operationId": "14ffc1a2beec11e409c05b16801dd1c1",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -387,14 +447,14 @@
                 }
             }
         },
-        "/v1/user/{post}": {
+        "/api/v1/user/{post}": {
             "get": {
                 "tags": [
                     "User"
                 ],
                 "summary": "Get a single user",
                 "description": "Get a single user",
-                "operationId": "65495967dc4fdc0bd8979c10e47513f6",
+                "operationId": "a059c975b97fe152bcfd474862db6f9f",
                 "parameters": [
                     {
                         "name": "post",
@@ -429,7 +489,7 @@
                 ],
                 "summary": "Update an existing user",
                 "description": "Update an existing user",
-                "operationId": "d79ecab079b54ee4d8f328041e5098f9",
+                "operationId": "44e584d868b4c39b0da94cd7fb7b872d",
                 "parameters": [
                     {
                         "name": "post",
@@ -470,7 +530,7 @@
                 ],
                 "summary": "Delete a user",
                 "description": "Delete a user",
-                "operationId": "5dfd3934f71e9af76d66cfd1b89c4d7e",
+                "operationId": "6ea405b6f022e224b9eef12f8a9243d1",
                 "parameters": [
                     {
                         "name": "post",
@@ -497,14 +557,14 @@
                 ]
             }
         },
-        "/v1/user/login": {
+        "/api/v1/login": {
             "post": {
                 "tags": [
                     "User"
                 ],
                 "summary": "Login user",
                 "description": "Login user",
-                "operationId": "6ea535d2a5c6802b41a7cac3bd53b57d",
+                "operationId": "9cb2efee96b203086a6d6e3a2dcff2b0",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -526,6 +586,33 @@
                                     }
                                 },
                                 "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Regsiter a new user",
+                "description": "Register a new user",
+                "operationId": "d95e62b66f4c6bb043fabf35c31875ce",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
                             }
                         }
                     }
